@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.modelos.Persona;
 
@@ -18,7 +19,7 @@ public class ControladorUsuariosPlantilla {
 	public static ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
 	
 	@RequestMapping( value = "/dashboard", method = RequestMethod.GET )
-	public String index( Model model, HttpSession session ) {
+	public String index( HttpSession session, Model model ) {
 		
 		if( session.getAttribute( "nombre" ) != null ) {
 			model.addAttribute( "listaPersonas", listaPersonas );
@@ -33,7 +34,8 @@ public class ControladorUsuariosPlantilla {
 	@RequestMapping( value = "/login", method = RequestMethod.POST )
 	public String login( @RequestParam( value="nombreUsuario" ) String nombreUsuario,
 						 @RequestParam( value="password" ) String password,
-						 HttpSession session ) {
+						 HttpSession session,
+						 RedirectAttributes flash) {
 		
 		if( listaPersonas.size() == 0 ) {
 			listaPersonas.add( new Persona( "Alex", "Martinez", 12345, "alex88", "pass123" ) );
@@ -52,6 +54,15 @@ public class ControladorUsuariosPlantilla {
 					return "redirect:/dashboard";
 			}
 		}
+		
+		if( nombreUsuario.equals( "" ) ) {
+			flash.addFlashAttribute( "errorNombreUsuario", "Por favor proporciona tu nombre de usuario." );
+		}
+		
+		if( password.equals( "" ) ) {
+			flash.addFlashAttribute( "errorPassword", "Por favor proporciona tu password." );
+		}		
+		flash.addFlashAttribute( "loginError", "Credenciales incorrectas." );
 		
 		return "redirect:/";
 	}

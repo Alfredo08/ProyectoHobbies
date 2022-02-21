@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Login</title>
+		<link rel="stylesheet" href="/css/index.css"/>
 	</head>
 	<body>
 		<form method="POST" action="/login">
@@ -13,17 +14,20 @@
 				<label for="nombreUsuario">
 					Nombre de usuario:
 				</label>
-				<input type="text" id="nombreUsuario" name="nombreUsuario" />
+				<input type="text" id="nombreUsuario" name="nombreUsuario" /> <c:out value="${errorNombreUsuario}" />
 			</div>
 			<div>
 				<label for="password">
 					Password:
 				</label>
-				<input type="password" id="password" name="password" />
+				<input type="password" id="password" name="password" /> <c:out value="${errorPassword}" />
 			</div>
 			<button type="submit">
 				Login
 			</button>
 		</form>
+		<div class="error">
+			<c:out value="${loginError}" />
+		</div>
 	</body>
 </html>
