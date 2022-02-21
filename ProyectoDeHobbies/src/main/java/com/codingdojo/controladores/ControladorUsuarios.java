@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping( "/usuarios" )
 public class ControladorUsuarios {
 	public static String usuarios[] = { "Alex", "Martha", "Julieta", "Alan", "Antonio" };
 	
-	@RequestMapping( value="/usuarios", method=RequestMethod.GET)
+	@RequestMapping( value="", method=RequestMethod.GET)
 	public String despliegaUsuarios() {
 		
 		String respuesta = "";
@@ -25,7 +26,7 @@ public class ControladorUsuarios {
 		return respuesta;
 	}
 	
-	@RequestMapping( value="/usuarios/filtrar", method=RequestMethod.GET )
+	@RequestMapping( value="/filtrar", method=RequestMethod.GET )
 	public String despliegaUsuariosFiltrados( @RequestParam(value="letra") String letra, 
 											  @RequestParam(value="id") int id ) {
 		String respuesta = "";
@@ -45,7 +46,7 @@ public class ControladorUsuarios {
 		return respuesta;
 	}
 	
-	@RequestMapping( value="/usuarios/filtrar/{letra}", method=RequestMethod.GET )
+	@RequestMapping( value="/filtrar/{letra}", method=RequestMethod.GET )
 	public String despliegaUsuariosFiltradoPath( @PathVariable("letra") String letra ) {
 		String respuesta = "";
 		for( int i = 0; i < usuarios.length; i ++ ) {
@@ -61,5 +62,7 @@ public class ControladorUsuarios {
 		
 		return respuesta;
 	}
+	
+	
 	
 }
