@@ -25,7 +25,7 @@ public class Usuario {
 	private long identificador;
 	
 	@NotNull
-	@Size( min = 4, max = 30 )
+	@Size( min = 4, max = 30, message = "El password debe de tener entre 4 y 30 caracteres" )
 	private String password;
 	
 	public Usuario() {

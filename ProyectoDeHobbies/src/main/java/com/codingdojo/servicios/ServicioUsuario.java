@@ -18,4 +18,12 @@ public class ServicioUsuario {
 	public List<Usuario> selectAllFromUsuarios(){
 		return repositorioUsuario.findAll();
 	}
+	
+	public Usuario insertIntoUsuarios( Usuario nuevoUsuario ) {
+		return repositorioUsuario.save( nuevoUsuario );
+	}
+	
+	public Long deleteFromUsuarios( String nombreUsuario ) {
+		return repositorioUsuario.deleteByNombreUsuario( nombreUsuario );
+	}
 }

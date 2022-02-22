@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,13 @@
 		<ul>
 			<c:forEach var="usuario" items="${listaUsuarios}" >
 				<li>
-					<c:out value="${usuario.getNombre()}" /> <c:out value="${usuario.getApellido()}" />
+					<form action="/usuarios/eliminar/${usuario.getNombreUsuario()}" method="POST">
+						<c:out value="${usuario.getNombre()}" /> <c:out value="${usuario.getApellido()}" />
+						<input type="hidden" name="_method" value="DELETE" />
+						<button type="submit">
+							Eliminar usuario
+						</button>
+					</form >
 				</li>
 			</c:forEach>
 		</ul>
