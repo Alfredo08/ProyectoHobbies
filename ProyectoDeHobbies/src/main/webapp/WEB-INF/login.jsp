@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="/css/index.css"/>
 	</head>
 	<body>
-		<form method="POST" action="/login">
+		<form method="POST" action="/usuarios/login">
 			<div>
 				<label for="nombreUsuario">
 					Nombre de usuario:

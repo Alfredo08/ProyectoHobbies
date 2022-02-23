@@ -10,8 +10,11 @@
 	</head>
 	<body>
 		<h1>
-			Lista de usuarios de nuestra base de datos proyecto_hobbies
+			Bienvenido de vuelta <c:out value="${nombre}" /> <c:out value="${apellido}" /> <c:out value="${nombreUsuario}"/>	
 		</h1>
+		<h2>
+			Lista de usuarios de nuestra base de datos proyecto_hobbies
+		</h2>
 		<ul>
 			<c:forEach var="usuario" items="${listaUsuarios}" >
 				<li>
@@ -25,5 +28,12 @@
 				</li>
 			</c:forEach>
 		</ul>
+		<div>
+			<form action="/usuarios/logout" method="GET">
+				<button type="submit">
+					Logout
+				</button>
+			</form>
+		</div>
 	</body>
 </html>

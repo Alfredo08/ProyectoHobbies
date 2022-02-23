@@ -26,4 +26,14 @@ public class ServicioUsuario {
 	public Long deleteFromUsuarios( String nombreUsuario ) {
 		return repositorioUsuario.deleteByNombreUsuario( nombreUsuario );
 	}
+	
+	public Usuario selectFromUsuariosWhereNombreUsuarioAndPassword( String nombreUsuario, String password ) {
+		List<Usuario> usuarioEncontrado = repositorioUsuario.findByNombreUsuarioAndPassword(nombreUsuario, password);
+		if ( usuarioEncontrado.isEmpty() ) {
+			return null;
+		}
+		else {
+			return usuarioEncontrado.get(0);
+		}
+	}
 }

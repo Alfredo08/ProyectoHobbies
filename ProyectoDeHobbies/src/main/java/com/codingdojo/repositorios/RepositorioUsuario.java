@@ -22,4 +22,6 @@ public interface RepositorioUsuario extends CrudRepository<Usuario, Long> {
 	// DELTE FROM usuarios WHERE nombre_usuario = nombreUsuario
 	@Transactional
 	Long deleteByNombreUsuario( String nombreUsuario );
+	
+	List<Usuario> findByNombreUsuarioAndPassword( String nombreUsuario, String password );
 }
