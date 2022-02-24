@@ -25,6 +25,13 @@
 							Eliminar usuario
 						</button>
 					</form >
+					<c:if test = "${usuario.getNombreUsuario() == nombreUsuario}">
+						<a href="/usuarios/editar">
+							<button>
+								Editar
+							</button>
+						</a>
+					</c:if>
 					<ul>
 						<c:forEach var="hobby" items="${usuario.getListaHobbies()}" >
 							<li>

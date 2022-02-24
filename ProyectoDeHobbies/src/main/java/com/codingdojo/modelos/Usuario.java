@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,13 +21,15 @@ public class Usuario {
 	private String nombreUsuario;
 	
 	@NotNull
+	@NotEmpty
 	private String nombre;
 	
 	@NotNull
+	@NotEmpty
 	private String apellido;
 	
 	@NotNull
-	private long identificador;
+	private Long identificador;
 	
 	@NotNull
 	@Size( min = 4, max = 30, message = "El password debe de tener entre 4 y 30 caracteres" )
@@ -39,7 +42,7 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(String nombreUsuario, String nombre, String apellido, long identificador, String password) {
+	public Usuario(String nombreUsuario, String nombre, String apellido, Long identificador, String password) {
 		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -71,11 +74,11 @@ public class Usuario {
 		this.apellido = apellido;
 	}
 
-	public long getIdentificador() {
+	public Long getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(long identificador) {
+	public void setIdentificador(Long identificador) {
 		this.identificador = identificador;
 	}
 

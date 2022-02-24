@@ -57,7 +57,7 @@ public class ControladorUsuario {
 	}
 	
 	@RequestMapping( value = "/registrar", method = RequestMethod.POST )
-	public String registrarUsuario( @Valid @ModelAttribute("usuario") Usuario nuevoUsuario, BindingResult result ) {
+	public String registrarUsuario( @Valid @ModelAttribute("usuario") Usuario nuevoUsuario, BindingResult result) {
 		
 		if ( result.hasErrors() ) {
 			return "registro.jsp";
@@ -116,5 +116,26 @@ public class ControladorUsuario {
 		session.removeAttribute( "identificador" );
 		
 		return "redirect:/usuarios/login";
+	}
+	
+	@RequestMapping( value = "/editar", method = RequestMethod.GET )
+	public String despliegaEditar(  @ModelAttribute("usuario") Usuario editarUsuario ) {
+		return "editarUsuario.jsp";
+	}
+	
+	@RequestMapping( value = "/editar", method = RequestMethod.PUT )
+	public String editarUsuario( @Valid @ModelAttribute("usuario") Usuario editarUsuario, BindingResult result,
+								 HttpSession session) {
+		if ( result.hasErrors() ) {
+			return "editarUsuario.jsp";
+		}
+		else {
+			session.setAttribute( "nombre", editarUsuario.getNombre() );
+			session.setAttribute( "apellido", editarUsuario.getApellido() );
+			session.setAttribute( "identificador", editarUsuario.getIdentificador() );
+			session.setAttribute( "nombreUsuario", editarUsuario.getNombreUsuario() );
+			servicioUsuario.updateUsuario( editarUsuario );
+			return "redirect:/usuarios";
+		}
 	}
 }

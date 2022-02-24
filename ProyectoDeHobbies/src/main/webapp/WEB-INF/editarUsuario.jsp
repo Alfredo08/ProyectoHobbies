@@ -7,32 +7,30 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Editar Usuario</title>
 	</head>
 	<body>
 		<h1>
-			Registro
+			Editar Usuario
 		</h1>
-		<form:form method="POST" action="/usuarios/registrar" modelAttribute="usuario">
+		<form:form method="POST" action="/usuarios/editar" modelAttribute="usuario">
+			<input type="hidden" name="_method" value="PUT" />
 			<div>
 				<form:label path="nombre" for="nombre">
 					Nombre:
 				</form:label>
-				<form:input path="nombre" type="text" name="nombre" id="nombre" />
+				<form:input path="nombre" type="text" name="nombre" id="nombre" value="${nombre}" />
 				<form:errors path="nombre"/>
 			</div>
 			<div>
 				<form:label path="apellido" for="apellido">
 					Apellido:
 				</form:label>
-				<form:input path="apellido" type="text" name="apellido" id="apellido" />
+				<form:input path="apellido" type="text" name="apellido" id="apellido" value="${apellido}"/>
 				<form:errors path="apellido"/>
 			</div>
 			<div>
-				<form:label path="nombreUsuario" for="nombreUsuario">
-					Nombre de usuario:
-				</form:label>
-				<form:input path="nombreUsuario" type="text" name="nombreUsuario" id="nombreUsuario" />
+				<form:input path="nombreUsuario" type="hidden" name="nombreUsuario" id="nombreUsuario" value="${nombreUsuario}" />
 				<form:errors path="nombreUsuario"/>
 			</div>
 			<div>
@@ -46,11 +44,11 @@
 				<form:label path="identificador" for="identificador">
 					Identificador:
 				</form:label>
-				<form:input path="identificador" type="text" name="identificador" id="identificador" />
+				<form:input path="identificador" type="number" name="identificador" id="identificador" value="${identificador}" />
 				<form:errors path="identificador"/>
 			</div>
 			<button type="submit">
-				Registrar usuario
+				Editar usuario
 			</button>
 		</form:form>
 	</body>

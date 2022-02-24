@@ -36,4 +36,12 @@ public class ServicioUsuario {
 			return usuarioEncontrado.get(0);
 		}
 	}
+	
+	public void updateUsuario( Usuario editarUsuario ) {
+		repositorioUsuario.actualizaUsuarioOpcion2(editarUsuario.getNombre(), 
+										   editarUsuario.getApellido(), 
+										   editarUsuario.getPassword(), 
+										   editarUsuario.getIdentificador(), 
+										   editarUsuario.getNombreUsuario() );
+	}
 }
