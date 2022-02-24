@@ -1,9 +1,13 @@
 package com.codingdojo.modelos;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,6 +31,9 @@ public class Usuario {
 	@NotNull
 	@Size( min = 4, max = 30, message = "El password debe de tener entre 4 y 30 caracteres" )
 	private String password;
+	
+	@OneToMany( mappedBy = "usuario", fetch = FetchType.LAZY )
+	private List<Hobby> listaHobbies;
 	
 	public Usuario() {
 		
@@ -78,5 +85,13 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Hobby> getListaHobbies() {
+		return listaHobbies;
+	}
+
+	public void setListaHobbies(List<Hobby> listaHobbies) {
+		this.listaHobbies = listaHobbies;
 	}
 }

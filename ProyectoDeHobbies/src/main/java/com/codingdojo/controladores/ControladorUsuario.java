@@ -29,11 +29,20 @@ public class ControladorUsuario {
 		this.servicioUsuario = servicio;
 	}
 	
+	//localhost:8080/usuarios
 	@RequestMapping( value = "", method = RequestMethod.GET )
 	public String despliegaUsuarios( Model model, HttpSession session ) {
 		if( session.getAttribute( "nombre" ) != null ) {
 			List<Usuario> listaUsuarios = servicioUsuario.selectAllFromUsuarios();
 			model.addAttribute( "listaUsuarios", listaUsuarios );
+			
+			for( int i = 0; i < listaUsuarios.size(); i ++ ) {
+				System.out.println( listaUsuarios.get(i).getNombre() + " " + listaUsuarios.get(i).getApellido() );
+				for( int j = 0; j < listaUsuarios.get(i).getListaHobbies().size(); j ++ ) {
+					System.out.println( " - " + listaUsuarios.get(i).getListaHobbies().get(j).getNombre() );
+				}
+			}
+			
 			return "usuarios.jsp";
 		}
 		else {
@@ -41,6 +50,7 @@ public class ControladorUsuario {
 		}
 	}
 	
+	//localhost:8080/usuarios/registro
 	@RequestMapping( value = "/registro", method = RequestMethod.GET )
 	public String despliegaRegistro( @ModelAttribute("usuario") Usuario nuevoUsuario ) {
 		return "registro.jsp";

@@ -25,6 +25,13 @@
 							Eliminar usuario
 						</button>
 					</form >
+					<ul>
+						<c:forEach var="hobby" items="${usuario.getListaHobbies()}" >
+							<li>
+								<c:out value="${hobby.getNombre()}" />
+							</li>
+						</c:forEach>
+					</ul>
 				</li>
 			</c:forEach>
 		</ul>

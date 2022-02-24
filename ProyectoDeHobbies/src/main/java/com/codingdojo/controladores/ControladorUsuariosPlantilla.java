@@ -18,6 +18,7 @@ public class ControladorUsuariosPlantilla {
 	
 	public static ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
 	
+	//localhost:8080/dashboard
 	@RequestMapping( value = "/dashboard", method = RequestMethod.GET )
 	public String index( HttpSession session, Model model ) {
 		
@@ -30,7 +31,7 @@ public class ControladorUsuariosPlantilla {
 			return "redirect:/";
 		}
 	}
-	
+	//localhost:8080/login
 	@RequestMapping( value = "/login", method = RequestMethod.POST )
 	public String login( @RequestParam( value="nombreUsuario" ) String nombreUsuario,
 						 @RequestParam( value="password" ) String password,
@@ -77,6 +78,7 @@ public class ControladorUsuariosPlantilla {
 		return "redirect:/";
 	}
 	
+	//localhost:8080/
 	@RequestMapping( value = "/", method = RequestMethod.GET )
 	public String despliegaLogin() {
 		return "login.jsp";
