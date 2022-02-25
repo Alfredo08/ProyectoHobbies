@@ -28,6 +28,8 @@ public interface RepositorioUsuario extends CrudRepository<Usuario, Long> {
 	
 	List<Usuario> findByNombreUsuarioAndPassword( String nombreUsuario, String password );
 	
+	List<Usuario> findByNombreUsuario( String nombreUsuario );
+	
 	@Transactional
 	@Modifying
 	@Query( value = "UPDATE usuarios " +

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +25,13 @@ import com.codingdojo.servicios.ServicioUsuario;
 @RequestMapping( "/usuarios" )
 public class ControladorUsuario {
 	
-	private final ServicioUsuario servicioUsuario;
+	@Autowired
+	private ServicioUsuario servicioUsuario;
 	
-	public ControladorUsuario( ServicioUsuario servicio ) {
-		this.servicioUsuario = servicio;
-	}
+	// private final ServicioUsuario servicioUsuario;
+	// public ControladorUsuario( ServicioUsuario servicio ) {
+	// 	this.servicioUsuario = servicio;
+	// }
 	
 	//localhost:8080/usuarios
 	@RequestMapping( value = "", method = RequestMethod.GET )
@@ -63,6 +67,8 @@ public class ControladorUsuario {
 			return "registro.jsp";
 		}
 		else {
+			String hash = BCrypt.hashpw( nuevoUsuario.getPassword(), BCrypt.gensalt() );
+			nuevoUsuario.setPassword( hash );
 			servicioUsuario.insertIntoUsuarios( nuevoUsuario );
 		
 			return "redirect:/usuarios";
@@ -81,7 +87,7 @@ public class ControladorUsuario {
 						 HttpSession session,
 						 RedirectAttributes flash) {
 		
-		Usuario usuarioEncontrado = servicioUsuario.selectFromUsuariosWhereNombreUsuarioAndPassword( nombreUsuario, password );
+		Usuario usuarioEncontrado = servicioUsuario.selectFromUsuariosWhereNombreUsuario( nombreUsuario );
 		if( usuarioEncontrado == null ) {
 			if( nombreUsuario.equals( "" ) ) {
 				flash.addFlashAttribute( "errorNombreUsuario", "Por favor proporciona tu nombre de usuario." );
@@ -95,11 +101,20 @@ public class ControladorUsuario {
 			return "redirect:/usuarios/login";
 		}
 		else {
-			session.setAttribute( "nombre", usuarioEncontrado.getNombre() );
-			session.setAttribute( "apellido", usuarioEncontrado.getApellido() );
-			session.setAttribute( "identificador", usuarioEncontrado.getIdentificador() );
-			session.setAttribute( "nombreUsuario", usuarioEncontrado.getNombreUsuario() );
-			return "redirect:/usuarios";
+			
+			if( BCrypt.checkpw( password, usuarioEncontrado.getPassword() ) ) {
+				session.setAttribute( "nombre", usuarioEncontrado.getNombre() );
+				session.setAttribute( "apellido", usuarioEncontrado.getApellido() );
+				session.setAttribute( "identificador", usuarioEncontrado.getIdentificador() );
+				session.setAttribute( "nombreUsuario", usuarioEncontrado.getNombreUsuario() );
+				return "redirect:/usuarios";
+			}
+			else {
+				flash.addFlashAttribute( "loginError", "Credenciales incorrectas." );
+				
+				return "redirect:/usuarios/login";
+			}
+			
 		}
 	}
 	

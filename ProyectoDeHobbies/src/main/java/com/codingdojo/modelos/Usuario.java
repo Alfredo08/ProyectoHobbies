@@ -32,7 +32,7 @@ public class Usuario {
 	private Long identificador;
 	
 	@NotNull
-	@Size( min = 4, max = 30, message = "El password debe de tener entre 4 y 30 caracteres" )
+	@Size( min = 4, max = 100, message = "El password debe de tener entre 4 y 30 caracteres" )
 	private String password;
 	
 	@OneToMany( mappedBy = "usuario", fetch = FetchType.LAZY )

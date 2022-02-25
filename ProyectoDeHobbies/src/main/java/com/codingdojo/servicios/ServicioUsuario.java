@@ -2,6 +2,7 @@ package com.codingdojo.servicios;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codingdojo.modelos.Usuario;
@@ -9,11 +10,14 @@ import com.codingdojo.repositorios.RepositorioUsuario;
 
 @Service
 public class ServicioUsuario {
-	private final RepositorioUsuario repositorioUsuario;
+	@Autowired
+	private RepositorioUsuario repositorioUsuario;
 	
-	public ServicioUsuario( RepositorioUsuario repositorio ) {
-		this.repositorioUsuario = repositorio;
-	}
+	// private final RepositorioUsuario repositorioUsuario;
+	
+	//public ServicioUsuario( RepositorioUsuario repositorio ) {
+	//	this.repositorioUsuario = repositorio;
+	//}
 	
 	public List<Usuario> selectAllFromUsuarios(){
 		return repositorioUsuario.findAll();
@@ -29,6 +33,16 @@ public class ServicioUsuario {
 	
 	public Usuario selectFromUsuariosWhereNombreUsuarioAndPassword( String nombreUsuario, String password ) {
 		List<Usuario> usuarioEncontrado = repositorioUsuario.findByNombreUsuarioAndPassword(nombreUsuario, password);
+		if ( usuarioEncontrado.isEmpty() ) {
+			return null;
+		}
+		else {
+			return usuarioEncontrado.get(0);
+		}
+	}
+	
+	public Usuario selectFromUsuariosWhereNombreUsuario( String nombreUsuario ) {
+		List<Usuario> usuarioEncontrado = repositorioUsuario.findByNombreUsuario( nombreUsuario );
 		if ( usuarioEncontrado.isEmpty() ) {
 			return null;
 		}
