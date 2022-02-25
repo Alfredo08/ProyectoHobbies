@@ -35,7 +35,7 @@ public interface RepositorioUsuario extends CrudRepository<Usuario, Long> {
 	@Query( value = "UPDATE usuarios " +
 					"SET nombre = ?1, apellido = ?2, password = ?3, identificador = ?4 " +
 					"WHERE nombre_usuario = ?5", nativeQuery = true )
-	void actualizaUsuario( String nombre, String apellido, String password, Long identificador, String nombreUsuario); 
+	void actualizaUsuario( String nombre, String apellido, String password, Long identificador, String nombreUsuario ); 
 	
 	@Transactional
 	@Modifying
@@ -45,5 +45,10 @@ public interface RepositorioUsuario extends CrudRepository<Usuario, Long> {
 	void actualizaUsuarioOpcion2( @Param("nombre") String nombre, @Param("apellido") String apellido, 
 								  @Param("password") String password, @Param("identificador")Long identificador, 
 								  @Param("nombreUsuario") String nombreUsuario); 
+	
+	@Query( value = "SELECT u.nombre_usuario, u.nombre, apellido, identificador, id AS 'hobby_id', h.nombre AS 'hobby_nombre' " +
+				    "FROM usuarios u, hobbies h " +
+				    "WHERE u.nombre_usuario = h.nombre_usuario", nativeQuery = true )
+	List<Object[]> seleccionarUsuariosConHobbies();
 	
 }

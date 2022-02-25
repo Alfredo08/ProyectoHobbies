@@ -58,4 +58,8 @@ public class ServicioUsuario {
 										   editarUsuario.getIdentificador(), 
 										   editarUsuario.getNombreUsuario() );
 	}
+	
+	public List<Object []> selectFromUsuariosHobbies(){
+		return repositorioUsuario.seleccionarUsuariosConHobbies();
+	}
 }

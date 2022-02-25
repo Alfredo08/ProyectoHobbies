@@ -40,11 +40,23 @@ public class ControladorUsuario {
 			List<Usuario> listaUsuarios = servicioUsuario.selectAllFromUsuarios();
 			model.addAttribute( "listaUsuarios", listaUsuarios );
 			
+			/*
 			for( int i = 0; i < listaUsuarios.size(); i ++ ) {
 				System.out.println( listaUsuarios.get(i).getNombre() + " " + listaUsuarios.get(i).getApellido() );
 				for( int j = 0; j < listaUsuarios.get(i).getListaHobbies().size(); j ++ ) {
 					System.out.println( " - " + listaUsuarios.get(i).getListaHobbies().get(j).getNombre() );
 				}
+			} */
+			
+			// Haciendo uso del query que regresa una lista de tipo List<Object [] >
+			List<Object []> renglones = servicioUsuario.selectFromUsuariosHobbies();
+			for( int i = 0; i < renglones.size(); i ++ ) {
+				System.out.println( "Renglon #" + (i + 1) );
+				Object [] renglon = renglones.get(i);
+				for( int j = 0; j < renglon.length; j ++  ) {
+					System.out.print( renglon[j] + " - " );
+				}
+				System.out.print( "\n" );
 			}
 			
 			return "usuarios.jsp";
