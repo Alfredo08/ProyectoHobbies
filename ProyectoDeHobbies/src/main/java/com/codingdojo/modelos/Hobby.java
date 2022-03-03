@@ -1,6 +1,5 @@
 package com.codingdojo.modelos;
 
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+
 @Entity
 @Table( name = "hobbies" )
 public class Hobby {
@@ -22,6 +25,7 @@ public class Hobby {
 	@NotNull
 	private String nombre;
 	
+	@JsonBackReference
 	@ManyToOne( fetch = FetchType.LAZY )
 	@JoinColumn( name = "nombreUsuario" )
 	private Usuario usuario;
